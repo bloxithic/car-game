@@ -1,0 +1,7 @@
+body { margin: 0; overflow: hidden; background: #000; font-family: sans-serif; }
+#ui { 
+    position: absolute; top: 20px; left: 20px; 
+    color: #0f0; background: rgba(0,0,0,0.7); 
+    padding: 15px; border: 2px solid #0f0; 
+    border-radius: 8px; pointer-events: none;
+}
