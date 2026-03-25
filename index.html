@@ -1,1 +1,63 @@
-<!-- HTML Structure Placeholder -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Car Game</title>\n</head>\n<body>\n    <h1>Welcome to the Car Game</h1>\n    <script src="app.js"></script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Physics Game</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+        }
+        canvas {
+            display: block;
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let car = {
+            x: canvas.width / 2,
+            y: canvas.height - 150,
+            width: 50,
+            height: 100,
+            speed: 0,
+            maxSpeed: 5,
+            friction: 0.05,
+            color: 'red'
+        };
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') {
+                car.speed += 0.1;
+            }
+            if (e.key === 'ArrowDown') {
+                car.speed -= 0.1;
+            }
+        });
+
+        function update() {
+            if (car.speed > 0) {
+                car.speed -= car.friction;
+            } else if (car.speed < 0) {
+                car.speed += car.friction;
+            }
+            car.speed = Math.max(0, Math.min(car.speed, car.maxSpeed));
+            car.y -= car.speed;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = car.color;
+            ctx.fillRect(car.x, car.y, car.width, car.height);
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
+</body>
+</html>
